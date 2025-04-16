@@ -4,17 +4,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodingTracker.Model;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 
 namespace CodingTracker.Data
 {
     public static class MockDatabase
     {
         public static List<CodeItem> codeItems = new();
-        static string connectionString = @"Data Source=coding-Tracker.db";
+        //static string connectionString = @"Data Source=coding-Tracker.db";
+
+
         //connecting to database
 
         public static void ConnectToDatabase()
         {
+
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            string connectionString = config.GetConnectionString("Default");
+            Console.WriteLine($"Connection string: {connectionString}");
+
             using (var connection = new SqliteConnection(connectionString)) {
             connection.Open();
             var tableCmd = connection.CreateCommand();
