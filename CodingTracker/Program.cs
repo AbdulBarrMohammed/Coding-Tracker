@@ -1,4 +1,4 @@
 ﻿
 using CodingTracker.Data;
 
-MockDatabase.ConnectToDatabase();
+//MockDatabase.ConnectToDatabase();
