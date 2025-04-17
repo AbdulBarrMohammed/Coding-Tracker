@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
@@ -45,21 +46,45 @@ namespace CodingTracker
 
         }
 
-        public void ShowCodeItems(string itemType)
+        public void AddCodeItems()
         {
-            switch (itemType)
-            {
-                case "test":
-                    Console.WriteLine("test");
-                    break;
-                case "hello":
-                    Console.WriteLine("hello");
-                    break;
+            // Get user input with specture console for each code item property
+            // Add to database
+            var startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
+            var endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
+
+            // First check if the start and end time are in the correct format
+
+            /*
+            bool passed = false;
+            string s = String.Empty;
+            DateTime dt;
+            try{
+                s = "23:45"; //Whatever you are getting the time from
+                dt = Convert.ToDateTime(s);
+                s = dt.ToString("HH:mm"); //if you want 12 hour time  ToString("hh:mm")
+                passed = true;
             }
+            catch(Exception ex)
+            {
+
+            } */
+
+
         }
 
         public int CalculateDuration()
         {
+
+            /*
+            string startTime = "7:00";
+            string endTime = "14:00";
+
+            TimeSpan duration = DateTime.Parse(endTime).Subtract(DateTime.Parse(startTime));
+            int x = (int) duration.TotalMinutes;
+            Console.WriteLine(x)
+
+            Console.WriteLine(duration.ToString()); */
             return -1;
         }
 

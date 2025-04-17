@@ -8,8 +8,8 @@ namespace CodingTracker.Model
     public class CodeItem
     {
         public int Duration { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public String StartTime { get; set; }
+        public String EndTime { get; set; }
 
     }
 }

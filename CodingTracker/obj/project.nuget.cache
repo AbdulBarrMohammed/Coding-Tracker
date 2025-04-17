@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wG7rmZ9j1xs=",
+  "dgSpecHash": "zHYdpw5Fo18=",
   "success": true,
   "projectFilePath": "/Users/barrmohammed/Desktop/DotnetAcademy/CodingTracker/CodingTracker/CodingTracker.csproj",
   "expectedPackageFiles": [
+    "/Users/barrmohammed/.nuget/packages/dapper/2.1.66/dapper.2.1.66.nupkg.sha512",
     "/Users/barrmohammed/.nuget/packages/microsoft.data.sqlite/9.0.4/microsoft.data.sqlite.9.0.4.nupkg.sha512",
     "/Users/barrmohammed/.nuget/packages/microsoft.data.sqlite.core/9.0.4/microsoft.data.sqlite.core.9.0.4.nupkg.sha512",
     "/Users/barrmohammed/.nuget/packages/microsoft.extensions.configuration/9.0.4/microsoft.extensions.configuration.9.0.4.nupkg.sha512",

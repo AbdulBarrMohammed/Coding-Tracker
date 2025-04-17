@@ -22,7 +22,7 @@ namespace CodingTracker.Controller
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText = $"INSERT INTO coding_track(StartTime, EndTime, Duration) VALUES('{startTime}', '{endTime}', {duration})";
-                tableCmd.ExecuteNonQuery(); // means we dont want the database to return any values
+                tableCmd.ExecuteNonQuery();
 
                 connection.Close();
             }
