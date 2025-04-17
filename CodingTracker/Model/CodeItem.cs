@@ -11,5 +11,12 @@ namespace CodingTracker.Model
         public String StartTime { get; set; }
         public String EndTime { get; set; }
 
+        public CodeItem(int duration, string startTime, string endTime)
+        {
+            Duration = duration;
+            StartTime = startTime;
+            EndTime = endTime;
+        }
+
     }
 }

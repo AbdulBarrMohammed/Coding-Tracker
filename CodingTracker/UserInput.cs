@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using CodingTracker.Controller;
+using CodingTracker.Model;
 using Microsoft.VisualBasic;
 using Spectre.Console;
 using static CodingTracker.Enums;
@@ -11,6 +13,7 @@ namespace CodingTracker
 {
     public class UserInput {
 
+        private CodingController codingController = new();
 
         internal void Main()
         {
@@ -66,6 +69,11 @@ namespace CodingTracker
                 endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
             }
 
+            // caluclate duration
+            int duration = CalculateDuration(startTime, endTime);
+
+            //insert new code item to coding controller
+            codingController.InsertCodeItem(new CodeItem(duration, startTime, endTime));
 
 
 
