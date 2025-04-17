@@ -54,34 +54,49 @@ namespace CodingTracker
             var endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
 
             // First check if the start and end time are in the correct format
-
-            /*
-            bool passed = false;
-            string s = String.Empty;
-            DateTime dt;
-            try{
-                s = "23:45"; //Whatever you are getting the time from
-                dt = Convert.ToDateTime(s);
-                s = dt.ToString("HH:mm"); //if you want 12 hour time  ToString("hh:mm")
-                passed = true;
-            }
-            catch(Exception ex)
+            while (!isFormattedCorrectly(startTime))
             {
+                Console.WriteLine("Please enter time in the format of hh:mm");
+                startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
+            }
 
-            } */
+            while (!isFormattedCorrectly(endTime))
+            {
+                Console.WriteLine("Please enter time in the format of hh:mm");
+                endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
+            }
+
+
+
 
 
         }
 
         public int CalculateDuration(string startTime, string endTime)
         {
-            /*
-            string startTime = "7:00";
-            string endTime = "14:00"; */
+
             TimeSpan duration = DateTime.Parse(endTime).Subtract(DateTime.Parse(startTime));
             int durationInMin = (int) duration.TotalMinutes;
 
             return durationInMin;
+        }
+
+        public bool isFormattedCorrectly(string timeStr) {
+
+            bool isFormatted;
+            string s = String.Empty;
+            DateTime dt;
+            try{
+                dt = Convert.ToDateTime(timeStr);
+                s = dt.ToString("hh:mm"); // 12 hour
+                isFormatted = true;
+            }
+            catch(Exception ex)
+            {
+                isFormatted = false;
+            }
+
+            return isFormatted;
         }
 
 
