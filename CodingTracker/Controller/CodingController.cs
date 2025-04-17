@@ -29,8 +29,22 @@ namespace CodingTracker.Controller
             }
         }
 
-        public void DeleteCodeItem(int id)
+        public void DeleteCodeItem()
         {
+            int id = GetNumberId();
+            using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
+                connection.Open();
+                var tableCmd = connection.CreateCommand();
+                tableCmd.CommandText = $"DELETE from coding_track WHERE Id = '{id}'";
+
+                int rowCount = tableCmd.ExecuteNonQuery();
+                if (rowCount == 0)
+                {
+                    System.Console.WriteLine($"\n\nRecord with Id {id} doesn't exist. \n\n");
+                    DeleteCodeItem();
+                }
+            }
+            System.Console.WriteLine($"\n\nRecord with Id {id} was deleted. \n\n");
 
         }
 
@@ -72,7 +86,16 @@ namespace CodingTracker.Controller
         public int GetNumberId()
         {
             var numberInput = AnsiConsole.Ask<string>("Enter the [green] id [/] of the code you want to delete:");
-            return -1;
+            if (numberInput == "0") GetNumberId();
+
+            while (!Int32.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0)
+            {
+                Console.WriteLine("\n\nInvalid number. Try again.\n\n");
+                numberInput = Console.ReadLine();
+            }
+
+            int finalInput = Convert.ToInt32(numberInput);
+            return finalInput;
 
         }
     }

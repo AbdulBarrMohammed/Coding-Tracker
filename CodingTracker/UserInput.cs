@@ -77,8 +77,7 @@ namespace CodingTracker
 
         public void RemoveCodeItem()
         {
-            int id = codingController.GetNumberId();
-            codingController.DeleteCodeItem(id);
+            codingController.DeleteCodeItem();
         }
 
         public void ViewCodeItems()
