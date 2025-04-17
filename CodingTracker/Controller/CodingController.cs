@@ -2,14 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodingTracker.Data;
+using CodingTracker.Model;
+using Microsoft.Data.Sqlite;
 
 namespace CodingTracker.Controller
 {
     public class CodingController
     {
-        public void AddCodeItem()
+        public void InsertCodeItem(CodeItem codeItem)
         {
 
+            int duration = codeItem.Duration;
+            string startTime = codeItem.StartTime.ToString();
+            string endTime = codeItem.EndTime.ToString();
+
+
+            using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
+                connection.Open();
+                var tableCmd = connection.CreateCommand();
+                tableCmd.CommandText = $"INSERT INTO coding_track(StartTime, EndTime, Duration) VALUES('{startTime}', '{endTime}', {duration})";
+                tableCmd.ExecuteNonQuery(); // means we dont want the database to return any values
+
+                connection.Close();
+            }
         }
 
         public void RemoveCodeItem()
@@ -24,7 +40,7 @@ namespace CodingTracker.Controller
 
         public void UpdateCodeItem()
         {
-            
+
         }
     }
 }

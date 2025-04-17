@@ -11,7 +11,12 @@ namespace CodingTracker.Data
     public static class MockDatabase
     {
         public static List<CodeItem> codeItems = new();
-        //static string connectionString = @"Data Source=coding-Tracker.db";
+        private static string connectionString = @"Data Source=coding-Tracker.db";
+
+        public static string GetConnectionString()
+        {
+            return connectionString;
+        }
 
 
         //connecting to database
