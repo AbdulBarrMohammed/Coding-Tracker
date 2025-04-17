@@ -44,6 +44,11 @@ namespace CodingTracker.Controller
 
         }
 
+        public void GetAllCodeItems()
+        {
+
+        }
+
         public int GetNumberId()
         {
             var numberInput = AnsiConsole.Ask<string>("Enter the [green] id [/] of the code you want to delete:");

@@ -29,16 +29,16 @@ namespace CodingTracker
                 switch(actionChoice)
                 {
                     case MenuAction.AddCodeItem:
-                        Console.WriteLine("You want to add code");
+                        AddCodeItems();
                         break;
                     case MenuAction.ViewCodeItems:
-                        Console.WriteLine("You want to view code");
+                        ViewCodeItems();
                         break;
                     case MenuAction.DeleteCodeItem:
-                        Console.WriteLine("You want to delete code code");
+                        RemoveCodeItem();
                         break;
                     case MenuAction.UpdateCodeItem:
-                        Console.WriteLine("You want to update code");
+                        EditCodeItem();
                         break;
                 }
 
@@ -59,14 +59,12 @@ namespace CodingTracker
             // First check if the start and end time are in the correct format
             while (!isFormattedCorrectly(startTime))
             {
-                Console.WriteLine("Please enter time in the format of hh:mm");
-                startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
+                startTime = AnsiConsole.Ask<string>("Please enter time in the format of [green]hh:mm[/]");
             }
 
             while (!isFormattedCorrectly(endTime))
             {
-                Console.WriteLine("Please enter time in the format of hh:mm");
-                endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
+                endTime = AnsiConsole.Ask<string>("Please enter time in the format of [green]hh:mm[/]");
             }
 
             // caluclate duration
@@ -81,6 +79,16 @@ namespace CodingTracker
         {
             int id = codingController.GetNumberId();
             codingController.DeleteCodeItem(id);
+        }
+
+        public void ViewCodeItems()
+        {
+            codingController.GetAllCodeItems();
+        }
+
+        public void EditCodeItem()
+        {
+            codingController.UpdateCodeItem();
         }
 
         public int CalculateDuration(string startTime, string endTime)
