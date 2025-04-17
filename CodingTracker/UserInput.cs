@@ -73,19 +73,15 @@ namespace CodingTracker
 
         }
 
-        public int CalculateDuration()
+        public int CalculateDuration(string startTime, string endTime)
         {
-
             /*
             string startTime = "7:00";
-            string endTime = "14:00";
-
+            string endTime = "14:00"; */
             TimeSpan duration = DateTime.Parse(endTime).Subtract(DateTime.Parse(startTime));
-            int x = (int) duration.TotalMinutes;
-            Console.WriteLine(x)
+            int durationInMin = (int) duration.TotalMinutes;
 
-            Console.WriteLine(duration.ToString()); */
-            return -1;
+            return durationInMin;
         }
 
 
