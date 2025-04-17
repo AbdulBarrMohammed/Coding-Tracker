@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CodingTracker.Data;
 using CodingTracker.Model;
 using Microsoft.Data.Sqlite;
+using Spectre.Console;
 
 namespace CodingTracker.Controller
 {
@@ -28,7 +29,7 @@ namespace CodingTracker.Controller
             }
         }
 
-        public void RemoveCodeItem()
+        public void DeleteCodeItem(int id)
         {
 
         }
@@ -40,6 +41,13 @@ namespace CodingTracker.Controller
 
         public void UpdateCodeItem()
         {
+
+        }
+
+        public int GetNumberId()
+        {
+            var numberInput = AnsiConsole.Ask<string>("Enter the [green] id [/] of the code you want to delete:");
+            return -1;
 
         }
     }

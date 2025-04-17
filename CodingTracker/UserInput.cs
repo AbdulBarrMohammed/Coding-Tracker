@@ -75,9 +75,12 @@ namespace CodingTracker
             //insert new code item to coding controller
             codingController.InsertCodeItem(new CodeItem(duration, startTime, endTime));
 
+        }
 
-
-
+        public void RemoveCodeItem()
+        {
+            int id = codingController.GetNumberId();
+            codingController.DeleteCodeItem(id);
         }
 
         public int CalculateDuration(string startTime, string endTime)
