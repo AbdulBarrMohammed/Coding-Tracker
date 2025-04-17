@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks;
 using CodingTracker.Data;
 using CodingTracker.Model;
@@ -34,11 +35,6 @@ namespace CodingTracker.Controller
 
         }
 
-        public void GetCodeItem()
-        {
-
-        }
-
         public void UpdateCodeItem()
         {
 
@@ -46,7 +42,32 @@ namespace CodingTracker.Controller
 
         public void GetAllCodeItems()
         {
-
+            Console.Clear();
+            using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
+                connection.Open();
+                var tableCmd = connection.CreateCommand();
+                tableCmd.CommandText = $"SELECT * FROM coding_track";
+                tableCmd.ExecuteNonQuery();
+                SqliteDataReader reader = tableCmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        MockDatabase.codeItems.Add(
+                            new CodeItem(reader.GetInt32(1), reader.GetString(2), reader.GetString(3))
+                        );
+                    }
+                } else {
+                    Console.WriteLine("No rows found");
+                }
+                connection.Close();
+                Console.WriteLine("------------------------------------------\n");
+                foreach (var c in MockDatabase.codeItems)
+                {
+                    Console.WriteLine($"Duration in minutes: {c.Duration} Start time: {c.StartTime} End time: {c.EndTime}");
+                }
+                Console.WriteLine("------------------------------------------\n");
+            }
         }
 
         public int GetNumberId()
