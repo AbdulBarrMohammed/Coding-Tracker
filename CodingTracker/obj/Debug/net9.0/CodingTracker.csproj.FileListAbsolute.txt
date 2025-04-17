@@ -49,3 +49,4 @@
 /Users/barrmohammed/Desktop/DotnetAcademy/CodingTracker/CodingTracker/obj/Debug/net9.0/CodingTracker.genruntimeconfig.cache
 /Users/barrmohammed/Desktop/DotnetAcademy/CodingTracker/CodingTracker/obj/Debug/net9.0/ref/CodingTracker.dll
 /Users/barrmohammed/Desktop/DotnetAcademy/CodingTracker/CodingTracker/bin/Debug/net9.0/Spectre.Console.dll
+/Users/barrmohammed/Desktop/DotnetAcademy/CodingTracker/CodingTracker/bin/Debug/net9.0/Dapper.dll

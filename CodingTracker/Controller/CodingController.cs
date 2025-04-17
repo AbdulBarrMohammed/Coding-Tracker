@@ -19,7 +19,6 @@ namespace CodingTracker.Controller
             string startTime = codeItem.StartTime.ToString();
             string endTime = codeItem.EndTime.ToString();
 
-
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
