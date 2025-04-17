@@ -53,7 +53,7 @@ namespace CodingTracker.Controller
                     while (reader.Read())
                     {
                         MockDatabase.codeItems.Add(
-                            new CodeItem(reader.GetInt32(1), reader.GetString(2), reader.GetString(3))
+                            new CodeItem(reader.GetInt32(3), reader.GetString(1), reader.GetString(2))
                         );
                     }
                 } else {
