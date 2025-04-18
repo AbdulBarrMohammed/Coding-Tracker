@@ -48,7 +48,7 @@ namespace CodingTracker.Controller
 
         }
 
-        public void UpdateCodeItem()
+        public void UpdateCodeItem(CodeItem codeItem)
         {
             var id = GetNumberId("update");
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString()))
@@ -63,8 +63,20 @@ namespace CodingTracker.Controller
                 {
                     Console.WriteLine($"\n\nRecord with Id {id} doesn't exist.\n\n");
                     connection.Close();
-                    UpdateCodeItem();
+                    UpdateCodeItem(codeItem);
                 }
+
+                //Get new input
+                int duration = codeItem.Duration;
+                string startTime = codeItem.StartTime.ToString();
+                string endTime = codeItem.EndTime.ToString();
+
+                // Insert updated code item properties to database
+                var tableCmd = connection.CreateCommand();
+                tableCmd.CommandText = $"UPDATE coding_track SET Duration = '{duration}', StartTime = {startTime}, EndTime = {endTime} WHERE Id = {id}";
+
+                tableCmd.ExecuteNonQuery();
+                connection.Close();
 
             }
 
