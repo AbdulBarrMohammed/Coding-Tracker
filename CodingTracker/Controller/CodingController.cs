@@ -31,7 +31,7 @@ namespace CodingTracker.Controller
 
         public void DeleteCodeItem()
         {
-            int id = GetNumberId();
+            int id = GetNumberId("delete");
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
@@ -50,6 +50,7 @@ namespace CodingTracker.Controller
 
         public void UpdateCodeItem()
         {
+            var id = GetNumberId("update");
 
         }
 
@@ -83,10 +84,10 @@ namespace CodingTracker.Controller
             }
         }
 
-        public int GetNumberId()
+        public int GetNumberId(string action)
         {
-            var numberInput = AnsiConsole.Ask<string>("Enter the [green] id [/] of the code you want to delete:");
-            if (numberInput == "0") GetNumberId();
+            var numberInput = AnsiConsole.Ask<string>($"Enter the [green] id [/] of the code you want to {action}:");
+            if (numberInput == "0") GetNumberId(action);
 
             while (!Int32.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0)
             {
