@@ -52,11 +52,14 @@ namespace CodingTracker.Controller
         {
             int id = GetNumberId("delete");
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
-                connection.Open();
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"DELETE from coding_track WHERE Id = '{id}'";
+                if (id == 0)
+                {
+                    Console.WriteLine("Invalid ID");
+                    DeleteCodeItem();
+                }
 
-                int rowCount = tableCmd.ExecuteNonQuery();
+                var sql = "DELETE FROM coding_track WHERE Id = @Id";
+                int rowCount = connection.Execute(sql, new { Id = id});
                 if (rowCount == 0)
                 {
                     System.Console.WriteLine($"\n\nRecord with Id {id} doesn't exist. \n\n");
@@ -142,7 +145,7 @@ namespace CodingTracker.Controller
                 MockDatabase.codeItems = connection.Query<CodeItem>(sql).ToList();
                 foreach (var c in MockDatabase.codeItems)
                 {
-                    Console.WriteLine($"Duration in minutes: {c.Duration} Start time: {c.StartTime} End time: {c.EndTime}");
+                    Console.WriteLine($"Id: {c.Id} Duration in minutes: {c.Duration} Start time: {c.StartTime} End time: {c.EndTime}");
                 }
                 Console.WriteLine("------------------------------------------\n");
             }
