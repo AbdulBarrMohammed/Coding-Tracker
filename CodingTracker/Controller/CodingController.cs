@@ -15,11 +15,6 @@ namespace CodingTracker.Controller
     {
         public void InsertCodeItem(CodeItem codeItem)
         {
-            /*
-
-            int duration = codeItem.Duration;
-            string startTime = codeItem.StartTime.ToString();
-            string endTime = codeItem.EndTime.ToString(); */
 
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
 
@@ -37,13 +32,7 @@ namespace CodingTracker.Controller
                 });
                 codeItem.Id = newId;
 
-                /*
-                connection.Open();
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"INSERT INTO coding_track(StartTime, EndTime, Duration) VALUES('{startTime}', '{endTime}', {duration})";
-                tableCmd.ExecuteNonQuery();
 
-                connection.Close(); */
             }
 
         }
@@ -75,18 +64,6 @@ namespace CodingTracker.Controller
             var id = GetNumberId("update");
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString()))
             {
-                connection.Open();
-                var checkCmd = connection.CreateCommand();
-                checkCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM coding_track WHERE Id = {id})";
-                int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
-
-                // check if query id exists in sql database first
-                if (checkQuery == 0)
-                {
-                    Console.WriteLine($"\n\nRecord with Id {id} doesn't exist.\n\n");
-                    connection.Close();
-                    UpdateCodeItem();
-                }
 
                 //Get new input
                 var startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
@@ -106,13 +83,17 @@ namespace CodingTracker.Controller
                 int duration = CalculateDuration(startTime, endTime);
 
                 // Insert updated code item properties to database
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"UPDATE coding_track SET Duration = {duration}, StartTime = '{startTime}', EndTime = '{endTime}' WHERE Id = {id}";
+
+                var sql1 = "UPDATE coding_track SET StartTime = @StartTime, EndTime = @EndTime, Duration = @Duration WHERE Id = @Id";
+                connection.Execute(sql1, new {
+                    Id = id,
+                    StartTime = startTime,
+                    EndTime = endTime,
+                    Duration = duration
+                 });
 
                 Console.WriteLine("Updated Successfully");
 
-                tableCmd.ExecuteNonQuery();
-                connection.Close();
 
             }
 
@@ -122,25 +103,6 @@ namespace CodingTracker.Controller
         {
             Console.Clear();
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
-                /*
-                connection.Open();
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"SELECT * FROM coding_track";
-                tableCmd.ExecuteNonQuery();
-                SqliteDataReader reader = tableCmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        MockDatabase.codeItems.Add(
-                            new CodeItem(reader.GetInt32(3), reader.GetString(1), reader.GetString(2))
-                        );
-                    }
-                } else {
-                    Console.WriteLine("No rows found");
-                }
-                connection.Close();
-                Console.WriteLine("------------------------------------------\n"); */
                 var sql = $"SELECT * FROM coding_track";
                 MockDatabase.codeItems = connection.Query<CodeItem>(sql).ToList();
                 foreach (var c in MockDatabase.codeItems)
