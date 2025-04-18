@@ -58,6 +58,14 @@ namespace CodingTracker.Controller
                 checkCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM coding_track WHERE Id = {id})";
                 int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
 
+                // check if query id exists in sql database first
+                if (checkQuery == 0)
+                {
+                    Console.WriteLine($"\n\nRecord with Id {id} doesn't exist.\n\n");
+                    connection.Close();
+                    UpdateCodeItem();
+                }
+
             }
 
         }
