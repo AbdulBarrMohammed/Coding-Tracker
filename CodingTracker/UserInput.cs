@@ -87,26 +87,11 @@ namespace CodingTracker
 
         public void EditCodeItem()
         {
-            var startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
-            // First check if the start and end time are in the correct format
-            while (!isFormattedCorrectly(startTime))
-            {
-                startTime = AnsiConsole.Ask<string>("Please enter start time in the format of [green]hh:mm[/]");
-            }
 
-            var endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
-            while (!isFormattedCorrectly(endTime))
-            {
-                endTime = AnsiConsole.Ask<string>("Please enter end time in the format of [green]hh:mm[/]");
-            }
-
-
-            // caluclate duration
-            int duration = CalculateDuration(startTime, endTime);
 
             //insert new code item to coding controller
-            codingController.UpdateCodeItem(new CodeItem(duration, startTime, endTime));
-            
+            //codingController.UpdateCodeItem(new CodeItem(duration, startTime, endTime));
+
         }
 
         public int CalculateDuration(string startTime, string endTime)

@@ -48,7 +48,7 @@ namespace CodingTracker.Controller
 
         }
 
-        public void UpdateCodeItem(CodeItem codeItem)
+        public void UpdateCodeItem()
         {
             var id = GetNumberId("update");
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString()))
@@ -63,13 +63,25 @@ namespace CodingTracker.Controller
                 {
                     Console.WriteLine($"\n\nRecord with Id {id} doesn't exist.\n\n");
                     connection.Close();
-                    UpdateCodeItem(codeItem);
+                    UpdateCodeItem();
                 }
 
                 //Get new input
-                int duration = codeItem.Duration;
-                string startTime = codeItem.StartTime.ToString();
-                string endTime = codeItem.EndTime.ToString();
+                var startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
+                // First check if the start and end time are in the correct format
+                while (!isFormattedCorrectly(startTime))
+                {
+                    startTime = AnsiConsole.Ask<string>("Please enter start time in the format of [green]hh:mm[/]");
+                }
+
+                var endTime = AnsiConsole.Ask<string>("Enter the [green]end time[/] of the book:");
+                while (!isFormattedCorrectly(endTime))
+                {
+                    endTime = AnsiConsole.Ask<string>("Please enter end time in the format of [green]hh:mm[/]");
+                }
+
+                // caluclate duration
+                int duration = CalculateDuration(startTime, endTime);
 
                 // Insert updated code item properties to database
                 var tableCmd = connection.CreateCommand();
@@ -126,6 +138,33 @@ namespace CodingTracker.Controller
             int finalInput = Convert.ToInt32(numberInput);
             return finalInput;
 
+        }
+
+        public bool isFormattedCorrectly(string timeStr) {
+
+            bool isFormatted;
+            string s = String.Empty;
+            DateTime dt;
+            try{
+                dt = Convert.ToDateTime(timeStr);
+                s = dt.ToString("hh:mm"); // 12 hour
+                isFormatted = true;
+            }
+            catch(Exception ex)
+            {
+                isFormatted = false;
+            }
+
+            return isFormatted;
+        }
+
+        public int CalculateDuration(string startTime, string endTime)
+        {
+
+            TimeSpan duration = DateTime.Parse(endTime).Subtract(DateTime.Parse(startTime));
+            int durationInMin = (int) duration.TotalMinutes;
+
+            return durationInMin;
         }
     }
 }
