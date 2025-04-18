@@ -51,6 +51,14 @@ namespace CodingTracker.Controller
         public void UpdateCodeItem()
         {
             var id = GetNumberId("update");
+            using (var connection = new SqliteConnection(MockDatabase.GetConnectionString()))
+            {
+                connection.Open();
+                var checkCmd = connection.CreateCommand();
+                checkCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM coding_track WHERE Id = {id})";
+                int checkQuery = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+            }
 
         }
 
