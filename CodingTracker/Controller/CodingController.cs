@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks;
 using CodingTracker.Data;
 using CodingTracker.Model;
+using Dapper;
 using Microsoft.Data.Sqlite;
 using Spectre.Console;
 
@@ -100,6 +101,7 @@ namespace CodingTracker.Controller
         {
             Console.Clear();
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
+                /*
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText = $"SELECT * FROM coding_track";
@@ -117,7 +119,9 @@ namespace CodingTracker.Controller
                     Console.WriteLine("No rows found");
                 }
                 connection.Close();
-                Console.WriteLine("------------------------------------------\n");
+                Console.WriteLine("------------------------------------------\n"); */
+                var sql = $"SELECT * FROM coding_track";
+                MockDatabase.codeItems = connection.Query<CodeItem>(sql).ToList();
                 foreach (var c in MockDatabase.codeItems)
                 {
                     Console.WriteLine($"Duration in minutes: {c.Duration} Start time: {c.StartTime} End time: {c.EndTime}");

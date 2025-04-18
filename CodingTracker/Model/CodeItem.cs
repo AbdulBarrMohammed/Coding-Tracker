@@ -7,6 +7,7 @@ namespace CodingTracker.Model
 {
     public class CodeItem
     {
+        public long Id { get; set; }
         public int Duration { get; set; }
         public String StartTime { get; set; }
         public String EndTime { get; set; }

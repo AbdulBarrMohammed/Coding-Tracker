@@ -66,7 +66,6 @@ namespace CodingTracker
                 endTime = AnsiConsole.Ask<string>("Please enter end time in the format of [green]hh:mm[/]");
             }
 
-
             // caluclate duration
             int duration = codingController.CalculateDuration(startTime, endTime);
 
@@ -87,41 +86,10 @@ namespace CodingTracker
 
         public void EditCodeItem()
         {
-
-
             //insert new code item to coding controller
             codingController.UpdateCodeItem();
 
         }
-
-        /*
-        public int CalculateDuration(string startTime, string endTime)
-        {
-
-            TimeSpan duration = DateTime.Parse(endTime).Subtract(DateTime.Parse(startTime));
-            int durationInMin = (int) duration.TotalMinutes;
-
-            return durationInMin;
-        } */
-
-        /*
-        public bool isFormattedCorrectly(string timeStr) {
-
-            bool isFormatted;
-            string s = String.Empty;
-            DateTime dt;
-            try{
-                dt = Convert.ToDateTime(timeStr);
-                s = dt.ToString("hh:mm"); // 12 hour
-                isFormatted = true;
-            }
-            catch(Exception ex)
-            {
-                isFormatted = false;
-            }
-
-            return isFormatted;
-        } */
 
 
     }
