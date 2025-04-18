@@ -70,7 +70,7 @@ namespace CodingTracker
             int duration = codingController.CalculateDuration(startTime, endTime);
 
             //insert new code item to coding controller
-            codingController.InsertCodeItem(new CodeItem(duration, startTime, endTime));
+            codingController.InsertCodeItem(new CodeItem(1, duration, startTime, endTime));
 
         }
 

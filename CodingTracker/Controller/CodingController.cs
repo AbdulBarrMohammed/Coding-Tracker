@@ -15,19 +15,37 @@ namespace CodingTracker.Controller
     {
         public void InsertCodeItem(CodeItem codeItem)
         {
+            /*
 
             int duration = codeItem.Duration;
             string startTime = codeItem.StartTime.ToString();
-            string endTime = codeItem.EndTime.ToString();
+            string endTime = codeItem.EndTime.ToString(); */
 
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
+
+
+                var sql = @"
+                    INSERT INTO coding_track (StartTime, EndTime, Duration)
+                    VALUES (@StartTime, @EndTime, @Duration);
+                    SELECT last_insert_rowid();";
+
+
+                    long newId = connection.ExecuteScalar<long>(sql, new {
+                    StartTime = codeItem.StartTime,
+                    EndTime = codeItem.EndTime,
+                    Duration = codeItem.Duration
+                });
+                codeItem.Id = newId;
+
+                /*
                 connection.Open();
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText = $"INSERT INTO coding_track(StartTime, EndTime, Duration) VALUES('{startTime}', '{endTime}', {duration})";
                 tableCmd.ExecuteNonQuery();
 
-                connection.Close();
+                connection.Close(); */
             }
+
         }
 
         public void DeleteCodeItem()
