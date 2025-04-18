@@ -85,7 +85,7 @@ namespace CodingTracker.Controller
 
                 // Insert updated code item properties to database
                 var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = $"UPDATE coding_track SET Duration = '{duration}', StartTime = {startTime}, EndTime = {endTime} WHERE Id = {id}";
+                tableCmd.CommandText = $"UPDATE coding_track SET Duration = {duration}, StartTime = '{startTime}', EndTime = '{endTime}' WHERE Id = {id}";
 
                 tableCmd.ExecuteNonQuery();
                 connection.Close();

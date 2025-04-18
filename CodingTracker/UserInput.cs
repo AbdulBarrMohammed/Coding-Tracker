@@ -90,7 +90,7 @@ namespace CodingTracker
 
 
             //insert new code item to coding controller
-            //codingController.UpdateCodeItem(new CodeItem(duration, startTime, endTime));
+            codingController.UpdateCodeItem();
 
         }
 
