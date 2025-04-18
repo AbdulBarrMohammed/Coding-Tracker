@@ -87,6 +87,8 @@ namespace CodingTracker.Controller
                 var tableCmd = connection.CreateCommand();
                 tableCmd.CommandText = $"UPDATE coding_track SET Duration = {duration}, StartTime = '{startTime}', EndTime = '{endTime}' WHERE Id = {id}";
 
+                Console.WriteLine("Updated Successfully");
+
                 tableCmd.ExecuteNonQuery();
                 connection.Close();
 
