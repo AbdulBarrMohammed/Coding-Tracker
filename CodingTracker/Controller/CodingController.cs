@@ -105,11 +105,16 @@ namespace CodingTracker.Controller
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
                 var sql = $"SELECT * FROM coding_track";
                 MockDatabase.codeItems = connection.Query<CodeItem>(sql).ToList();
-                foreach (var c in MockDatabase.codeItems)
+                if (MockDatabase.codeItems.Count == 0) Console.WriteLine("No rows found");
+                else
                 {
-                    Console.WriteLine($"Id: {c.Id} Duration in minutes: {c.Duration} Start time: {c.StartTime} End time: {c.EndTime}");
+                    foreach (var c in MockDatabase.codeItems)
+                    {
+                        Console.WriteLine($"Id: {c.Id} Duration in minutes: {c.Duration} Start time: {c.StartTime} End time: {c.EndTime}");
+                    }
+                    Console.WriteLine("------------------------------------------\n");
                 }
-                Console.WriteLine("------------------------------------------\n");
+
             }
         }
 
