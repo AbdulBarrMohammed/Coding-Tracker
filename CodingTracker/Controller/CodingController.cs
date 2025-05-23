@@ -17,13 +17,10 @@ namespace CodingTracker.Controller
         {
 
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString())) {
-
-
                 var sql = @"
                     INSERT INTO coding_track (StartTime, EndTime, Duration)
                     VALUES (@StartTime, @EndTime, @Duration);
                     SELECT last_insert_rowid();";
-
 
                     long newId = connection.ExecuteScalar<long>(sql, new {
                     StartTime = codeItem.StartTime,
@@ -31,8 +28,6 @@ namespace CodingTracker.Controller
                     Duration = codeItem.Duration
                 });
                 codeItem.Id = newId;
-
-
             }
 
         }
@@ -64,7 +59,6 @@ namespace CodingTracker.Controller
             var id = GetNumberId("update");
             using (var connection = new SqliteConnection(MockDatabase.GetConnectionString()))
             {
-
                 //Get new input
                 var startTime = AnsiConsole.Ask<string>("Enter the [green]start time[/] of the book to add:");
                 // First check if the start and end time are in the correct format
@@ -79,11 +73,10 @@ namespace CodingTracker.Controller
                     endTime = AnsiConsole.Ask<string>("Please enter end time in the format of [green]hh:mm[/]");
                 }
 
-                // caluclate duration
+                // Caluclate duration
                 int duration = CalculateDuration(startTime, endTime);
 
                 // Insert updated code item properties to database
-
                 var sql1 = "UPDATE coding_track SET StartTime = @StartTime, EndTime = @EndTime, Duration = @Duration WHERE Id = @Id";
                 connection.Execute(sql1, new {
                     Id = id,
@@ -93,7 +86,6 @@ namespace CodingTracker.Controller
                  });
 
                 Console.WriteLine("Updated Successfully");
-
 
             }
 
